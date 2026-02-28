@@ -14,48 +14,11 @@ The project is carried out through a browser-based training interface, meaning n
 ```bash
     cd net_practice
     ./run.sh
+```
+The NetPractice Survival Guide (Methodology)To solve the most advanced levels (Level 6 to 10), this project relies on a strict 4-step methodology:Count the Networks (Neighborhoods): Every physical connection (a wire between a host and a router, or between two routers) represents an independent network.Calculate the Masks (Subnetting): Divide larger networks into smaller blocks using CIDR notation.Assign the IPs (Neighbors): Ensure devices on the same wire share the same subnet block and mask. Two interfaces of the same router can never be on the same subnet.Build the Routing Table (The Map): Configure the forward and return paths for packets.How to Calculate Subnets (The Quick Math Method)Instead of converting IPs to binary, you can use this 3-step mathematical formula to quickly find subnet masks and IP ranges based on the CIDR notation (e.g., /26, /28, /30).Step 1: Calculate leftover host bits ($h$)Subtract the CIDR number from 32 (total IPv4 bits).h = 32 - CIDR(Example for /26: 32 - 26 = 6 bits)Step 2: Calculate the Block Size (IPs per subnet)Raise 2 to the power of the leftover bits.Block Size = 2^h(Example: 2^6 = 64 IPs per block)Step 3: Calculate the Decimal Subnet MaskSubtract the Block Size from 256.Mask = 256 - Block Size(Example: 256 - 64 = 192. So the mask is 255.255.255.192)Finding the Subnet Ranges:Simply jump by the Block Size starting from .0. For a /26 (Block of 64):Subnet 1: .0 to .63Subnet 2: .64 to .127Subnet 3: .128 to .191Subnet 4: .192 to .255Routing Logic ConceptsDefault Routes (0.0.0.0/0 or default): Used when a device only has one way out. It tells the device: "Send everything destined for unknown networks to this specific gateway." Always point hosts to their local router interface.Specific Routes (Destination Network => Next Hop IP): The Next Hop must ALWAYS be the IP of a directly connected neighbor (a router interface on the same physical wire). Routers don't have "long arms"; they can only hand packets to their immediate neighbors.Route Summarization: A technique used in Level 10. Instead of creating multiple complex routes for tiny subnets (like /28 or /30), you can use a broader mask (like /24) to group them together and route them efficiently through a single gateway.
 
-net_practice
-│  
-├── css
-│   └── netpractice.css
-├── end.html
-├── img
-│   ├── host.png
-│   ├── icon.png
-│   ├── internet.png
-│   ├── router.png
-│   ├── site-bg.png
-│   └── switch.png
-├── index.html
-├── js
-│   ├── intro.js
-│   ├── level10.js
-│   ├── level1.js
-│   ├── level2.js
-│   ├── level3.js
-│   ├── level4.js
-│   ├── level5.js
-│   ├── level6.js
-│   ├── level7.js
-│   ├── level8.js
-│   ├── level9.js
-│   ├── show.js
-│   └── sim.js
-├── level10.html
-├── level1.html
-├── level2.html
-├── level3.html
-├── level4.html
-├── level5.html
-├── level6.html
-├── level7.html
-├── level8.html
-├── level9.html
-├── License
-└──  run.sh          # Test to evaluate the project
-
-completed_lvl
+## Project Structure
+```
 ├── level1.json  	# Simple direct connection between two hosts
 ├── level2.json  	# Subnet mask matching between hosts
 ├── level3.json  	# Switch connecting multiple hosts
@@ -66,9 +29,7 @@ completed_lvl
 ├── level8.json  	# Complex routing with Internet access and fixed subnets
 ├── level9.json  	# Four networks, two routers, Internet hacking concepts
 ├── level10.json 	# Final challenge — VLSM, route summarization, full topology
-
-The NetPractice Survival Guide (Methodology)To solve the most advanced levels (Level 6 to 10), this project relies on a strict 4-step methodology:Count the Networks (Neighborhoods): Every physical connection (a wire between a host and a router, or between two routers) represents an independent network.Calculate the Masks (Subnetting): Divide larger networks into smaller blocks using CIDR notation.Assign the IPs (Neighbors): Ensure devices on the same wire share the same subnet block and mask. Two interfaces of the same router can never be on the same subnet.Build the Routing Table (The Map): Configure the forward and return paths for packets.How to Calculate Subnets (The Quick Math Method)Instead of converting IPs to binary, you can use this 3-step mathematical formula to quickly find subnet masks and IP ranges based on the CIDR notation (e.g., /26, /28, /30).Step 1: Calculate leftover host bits ($h$)Subtract the CIDR number from 32 (total IPv4 bits).h = 32 - CIDR(Example for /26: 32 - 26 = 6 bits)Step 2: Calculate the Block Size (IPs per subnet)Raise 2 to the power of the leftover bits.Block Size = 2^h(Example: 2^6 = 64 IPs per block)Step 3: Calculate the Decimal Subnet MaskSubtract the Block Size from 256.Mask = 256 - Block Size(Example: 256 - 64 = 192. So the mask is 255.255.255.192)Finding the Subnet Ranges:Simply jump by the Block Size starting from .0. For a /26 (Block of 64):Subnet 1: .0 to .63Subnet 2: .64 to .127Subnet 3: .128 to .191Subnet 4: .192 to .255Routing Logic ConceptsDefault Routes (0.0.0.0/0 or default): Used when a device only has one way out. It tells the device: "Send everything destined for unknown networks to this specific gateway." Always point hosts to their local router interface.Specific Routes (Destination Network => Next Hop IP): The Next Hop must ALWAYS be the IP of a directly connected neighbor (a router interface on the same physical wire). Routers don't have "long arms"; they can only hand packets to their immediate neighbors.Route Summarization: A technique used in Level 10. Instead of creating multiple complex routes for tiny subnets (like /28 or /30), you can use a broader mask (like /24) to group them together and route them efficiently through a single gateway.
-
+```
 ## Resources
 
 - [IP Addressing and Subnetting](http://apuntesdenetworking.blogspot.com/2011/09/subredes-ip-ip-subnetting.html)  
@@ -76,5 +37,5 @@ The NetPractice Survival Guide (Methodology)To solve the most advanced levels (L
 - `man ip-route` — Linux routing table documentation.
 - [YouTube Playlist](https://www.youtube.com/watch?v=s_Ntt6eTn94&list=PLCXqoZAc8-tzD5N5oCyIyEcMg_NDs6o7C) — Tutorials.
 
-AI Usage
+## AI Usage
 The use of AI in this project consisted of an interactive tutoring approach. AI was used to explain abstract networking concepts, break down the mathematical formulas behind VLSM (Variable Length Subnet Masking), and help debug complex routing loops in the final levels (7 to 10) by analyzing forward/return path logs.
